@@ -1,0 +1,84 @@
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+}
+.chat-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.chat-container h1 {
+  text-align: center;
+  margin-top: 0;
+}
+.chat-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  height: 400px;
+  overflow-y: scroll;
+}
+.chat-container li {
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #f5f5f5;
+}
+.chat-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.chat-form input[type="text"] {
+  flex-grow: 1;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+}
+.chat-form input[type="submit"] {
+  margin-left: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  background-color: #2ecc71;
+  color: #fff;
+  cursor: pointer;
+}
+.chat-form input[type="submit"]:hover {
+  background-color: #27ae60;
+}
+
+.room-form {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.room-form input[type="text"] {
+  flex-grow: 1;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+}
+
+.room-form input[type="submit"] {
+  margin-left: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  background-color: #3498db;
+  color: #fff;
+  cursor: pointer;
+}
+
+.room-form input[type="submit"]:hover {
+  background-color: #2980b9;
+}

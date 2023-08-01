@@ -1,0 +1,20 @@
+version: '3'
+services:
+  predactor-backend:
+  # build docker image found in currecnt dir
+    build: .
+    # you can add multimple ports as needed
+    ports:
+      - "3000:3000" 
+    environment:
+      - PORT = 3000
+      # also you can load multiple env variables with file
+        # env_file:
+        #   - ./ ,env 
+  postgresDB:
+    image: postgres
+    ports:
+      - '4321:5432'
+    environment:
+      POSTGRES_PASSWORD: '123'
+      POSTGRES_USER: 'postgres'

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/CSS/chatRoom.css">
+  <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+  <script src="/JS/chatRoom.js"></script> 
+  <title>Chat</title>
+</head>
+<body>
+  <div class="chat-container">
+    <h1>Chat Room</h1>
+    <ul id="chat-list">
+      <!-- previous chat messages go here (insert using js) -->
+    </ul>
+    <form id="chat-form" class="chat-form" action="" method="POST">
+      <input type="text" id="chat-input" placeholder="Type your message here..." required>
+      <input type="submit" value="Send">
+    </form>
+    <form id="room-form" class="room-form" action="">
+      <input type="text" id="room-input" placeholder="Room name" required>
+      <input type="submit" value="Join">
+    </form>
+  </div>
+</body>
+</html>

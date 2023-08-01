@@ -1,0 +1,259 @@
+components:
+  schemas:
+    success:
+      type: object
+      properties:
+        status:
+          type: string
+          description: status of the request
+          example: success
+        message:
+          type: string
+          description: description of the request response
+          example: verification code sent
+    fail:
+      type: object
+      properties:
+        status:
+          type: string
+          description: status of the request
+          example: fail
+        message:
+          type: string
+          description: description of the request response
+          example: Invalid token or user doesn't exist
+tags: 
+  - name: OTP
+    description: 2 Factor Authentication Routes
+paths:
+  /auth/otp/generate:
+    post:
+      description: Generate otp
+      tags:
+        - OTP
+      requestBody:
+         required: true
+         content:
+           application/json:
+             schema:
+                type: object
+                required:
+                  - user_id
+                properties:
+                  user_id:
+                    type: number
+                    description: The id of the user requestig to enable 2fa
+                    example: 1
+      responses:
+        200:
+          description: Successfully obtained shared secret for 2fa
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  base32:
+                    type: string
+                    description: Base32 string
+                    example: PNWS6SRXM5FTA6SBKYVF26DC
+                  otpauth_url:
+                    type: string
+                    description: OTP url
+                    example: otpauth://totp/Team%20Predators?secret=PNWS6SRXM5FTA6SBKYVF26DC
+                  qr_code_data_url:
+                    type: string
+                    description: Data for a QR code image
+                    example: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKQAAACkCAYAAAAZtYVBAAAAAklEQVR4AewaftIAAAYbSURBVO3BQY4ssZXAQFKo+1+Z85eajYBEVrVl40XYP4xxicUYF1mMcZHFGBdZjHGRxRgXWYxxkcUYF1mMcZHFGBdZjHGRxRgXWYxxkcUYF1mMcZHFGBf58JLKX6rYqewqTlROKt5Q2VWcqOwqvknlL1W8sRjjIosxLrIY4yIfvqzim1ROKk5UTip2KicVO5UTlV3FrmKnsqv4popvUvmmxRgXWYxxkcUYF/nwYypPVDyhclJxorKr2KmcVJyonKicqJxUvKHyRMUvLca4yGKMiyzGuMiH/3IVJyq7ijdUnqg4qdipnFT8L1uMcZHFGBdZjHGRD+P/UflLKicVJyq7iv9mizEushjjIosxLvLhxyp+SWVXcaKyq9ip7CpOVHYVJyonFScqu4o3Km6yGOMiizEushjjIh++TOVmFTuVXcVOZVfxhMquYqdyorKr2KnsKk5UbrYY4yKLMS6yGOMi9g//w1ROKv6Syq7iDZVdxX+zxRgXWYxxkcUYF7F/eEFlV7FT2VU8oXJS8ZdUnqh4Q+Wk4gmVXcWJyq5ip7KreGMxxkUWY1xkMcZFPrxUsVN5QmVXsav4JpWTip3KExU7lZOKk4qdyk7liYoTlV3FX1qMcZHFGBdZjHGRDy+pnFScVJyo7Cp2Km9U7FTeUHlD5YmKJ1SeUNlV/NJijIssxrjIYoyL2D+8oPJExYnKruINlZOKE5VdxU5lV/GEyq7iROWJihOVk4qdyknFG4sxLrIY4yKLMS5i//CHVHYVJypPVJyo/KWKncqu4kRlV7FTeaLiDZWTijcWY1xkMcZFFmNc5MOPqZyonFR8U8WJyknFTmVX8YbKExUnKk+o7Cr+0mKMiyzGuMhijIt8eEnll1R2FU+o7Cp2KruKncoTKicVJxVvqOwqdionFTuVXcVO5ZsWY1xkMcZFFmNcxP7hi1ROKnYqJxW/pPJNFScqJxU7lScqdionFTuVXcVO5aTijcUYF1mMcZHFGBf58MdUdhU7lZ3KruINlV3Ficqu4pdUdhU7lROVX6r4pcUYF1mMcZHFGBf58JLKruKbKnYqu4oTlV3FicquYqdyUrFTOanYqexUnqjYqTxRcaJyUvHGYoyLLMa4yGKMi3x4qWKnsqvYqZxU7FTeqNip7CreqNipvFFxonKi8oTKExU7lW9ajHGRxRgXWYxxkQ9/rGKnclJxonJS8UTFTmVX8UbFTmVXcVKxU9lVnKjsKnYqu4qdyi8txrjIYoyLLMa4yIeXVHYVO5Vdxa7iRGVXsas4UTlROanYqfwllZOKJyreqPilxRgXWYxxkcUYF/nwUsUTKruKncquYqfyRMUTKjuVXcUbKruKv6Syq9hVPKGyq3hjMcZFFmNcZDHGRT68pHJS8YbKruKbVE4qdionFTuVE5WTihOVXcVJxU5lV/GftBjjIosxLrIY4yL2D39I5YmKncpJxU7lpOIvqewq3lB5o2KnsqvYqZxUvLEY4yKLMS6yGOMiH15S+aaKncquYqeyUzmpeEPlpOIJlV3FX1LZVZxU7FS+aTHGRRZjXGQxxkU+vFTxSxVPVDyhsqvYqdxE5aTiCZUnVH5pMcZFFmNcZDHGRT68pPKXKk5UdhU7lV9SeaJip7Kr2FXsVE5UdhVPqPylxRgXWYxxkcUYF/nwZRXfpHJSsVPZqZxU7FR2FScqu4qdyq7iCZU3Kp5Q2VXsVH5pMcZFFmNcZDHGRT78mMoTFW9UPKHyhMobKruKb1J5o+I/aTHGRRZjXGQxxkU+/I9R2VXsVE4qdiq7iicqdio7lV3FicpJxYnKGxU7lW9ajHGRxRgXWYxxkQ//5VR2FScVT1ScqJxUPKGyq9hVnKjsKnYVO5Wdyq5ip/JLizEushjjIosxLvLhxyp+qeIJlV3FTuWJihOVXcUTKt+ksqvYqZxU/NJijIssxrjIYoyLfPgylb+ksqvYqewq3qjYqewqdhU7lZOKXcWJyonKrmKn8obKruKNxRgXWYxxkcUYF7F/GOMSizEushjjIosxLrIY4yKLMS6yGOMiizEushjjIosxLrIY4yKLMS6yGOMiizEushjjIosxLvJ/7yvigdWEJ2sAAAAASUVORK5CYII=
+        500:
+          description: Failed to obtain shared secret for 2fa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fail'
+  /auth/otp/getotp:
+    post:
+      description: Get OTP via SMS /!\ You need to have generated a shared secret first! and should have a phone number(starting from +<country_code>) set for the user.
+      tags:
+        - OTP
+      requestBody:
+         required: true
+         content:
+           application/json:
+             schema:
+                type: object
+                required:
+                  - user_id
+                properties:
+                  user_id:
+                    type: number
+                    description: The id of the user requestig to enable 2fa
+                    example: 1
+      responses:
+        200:
+          description: Successfully sent verification
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/success'
+        500:
+          description: Failed to send verification
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fail'
+  /auth/otp/verify:
+    post:
+      description: Verifying and enabling 2fa on a user account
+      tags:
+        - OTP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user_id
+                - token
+              properties:
+                user_id:
+                  type: number
+                  description: The id of the user requestig to enable 2fa
+                  example: 1
+                token:
+                  type: number
+                  description: A six digit verification code
+                  example: 362911
+      responses:
+        200:
+          description: Successfully enabled 2fa
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  otp_verified:
+                    type: boolean
+                    description: Status of the verification
+                    example: true
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        description: The id of the user enabling 2fa
+                        example: 3
+                      name:
+                        type: string
+                        description: The name of user enabling 2fa
+                        example: John Doe
+                      email:
+                        type: string
+                        description: The email of user enabling 2fa
+                        example: juankirkland04@gmail.com
+                      otp_enabled:
+                        type: boolean
+                        description: The status of 2fa feature
+                        example: true
+        500:
+          description: Failed to send verification
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fail'
+  /auth/otp/validate:
+    post:
+      description: Validating OTP on an account that has 2fa enabled
+      tags:
+        - OTP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user_id
+                - token
+              properties:
+                user_id:
+                  type: number
+                  description: The id of the user validating OTP
+                  example: 1
+                token:
+                  type: number
+                  description: A six digit verification code
+                  example: 362911
+      responses:
+        200:
+          description: Successfully validated your code
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  otp_valid:
+                    type: boolean
+                    description: Validity of the verification code
+                    example: true
+        500:
+          description: Failed to send verification
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fail'
+  /auth/otp/disable:
+    post:
+      description: Disable 2fa on an account that had 2fa enabled
+      tags:
+        - OTP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user_id
+              properties:
+                user_id:
+                  type: number
+                  description: The id of the account requesting 2fa disable
+                  example: 3
+      responses:
+        200:
+          description: Successfully disabled 2fa
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  otp_disabled:
+                    type: boolean
+                    description: Status of the disabling of 2fa
+                    example: true
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        description: The id of the user disabling 2fa
+                        example: 3
+                      name:
+                        type: string
+                        description: The name of user disabling 2fa
+                        example: John Doe
+                      email:
+                        type: string
+                        description: The email of user disabling 2fa
+                        example: juankirkland04@gmail.com
+                      otp_enabled:
+                        type: boolean
+                        description: The status of 2fa feature
+                        example: false
+        500:
+          description: Failed to disable 2fa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fail'

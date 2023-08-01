@@ -1,0 +1,18 @@
+version: '3'
+services:
+  predactor-backend:
+  # build docker image found in currecnt dir
+    build:
+      context: .
+      args:
+        NODE_ENV: development
+      
+    volumes:
+      - ./:/app:ro #for app folder to be read only
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+      # also you can load multiple env variables with file
+        # env_file:
+        #   - ./ ,env 

@@ -1,0 +1,25 @@
+paths:
+  /api/auth/google/callback:
+    get:
+      tags:
+        - Users
+      summary: Get redirected by google
+      description: Login and authenticate with google
+      security:
+        - google_auth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json: {}
+  /api/logout:
+    post:
+      tags:
+        - Users
+      summary: Logout
+      description: Logout
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json: {}

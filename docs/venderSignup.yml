@@ -1,0 +1,170 @@
+paths:
+  /api/vender:
+    post:
+      tags:
+        - Users
+      summary: Admin can register a vender
+      description: email and password will be sent to a vender authomatically
+      requestBody:
+        description: Vender registration details
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name: 
+                  type: string
+                  description: Vender's full name
+                  
+                email: 
+                  type: string
+                  format: email
+                  description: Vender's email address
+
+                gender:
+                  type: string
+                  description: Gender of Vender
+
+                preferred_language:
+                  type: string
+                  description: Language of preference
+
+                preferred_currency:
+                  type: UUID
+                  description: Currency of preferrence
+   
+                country:
+                  type: string
+                  description: Country of residence
+
+                province:
+                  type: string
+                  description: Province
+                
+                district:
+                  type: string
+                  description: District
+
+                sector:
+                  type: string
+                  description: Sector
+                
+                streetAddress:
+                  type: string
+                  description: Street address
+                
+                  
+                
+              required:
+                - name
+                - email
+                - gender
+                - preferred_language
+                
+      responses:
+        '200':
+          description: Vender registration successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid input provided
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: User's unique identifier in the database
+          example: 63
+        name:
+          type: string
+          description: User's full name
+          example: Predators
+        email:
+          type: string
+          format: email
+          description: User's email address
+          example: niyiyandika99@gmail.com
+        role_id:
+          type: integer
+          description: User's role ID
+          example: 1
+        password_hash:
+          type: string
+          description: password for Vender authentication
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp of when user details were last updated
+          example: '2023-04-16T23:55:12.357Z'
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp of when user account was created
+          example: '2023-04-16T23:55:12.357Z'
+        status:
+          type: string
+          enum: [active, inactive]
+          description: Current status of the user account
+          example: active
+        google_id:
+          type: integer
+          nullable: true
+          description: Google ID linked to user account (if applicable)
+          example: null
+        gender:
+          type: string
+          enum: [male, female, other, prefer_not_to_say]
+          nullable: true
+          description: User's gender (if provided)
+          example: male
+        preferred_language:
+          type: string
+          nullable: true
+          description: User's preferred language (if provided)
+          example: en
+        preferred_currency:
+          type: string
+          nullable: true
+          description: User's preferred currency (if provided)
+          example: null
+      required:
+        - id
+        - name
+        - email
+        - updated_at
+        - created
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: A description of the error
+        code:
+          type: integer
+          description: An error code associated with the error
+        data:
+          type: object
+          description: Additional information about the error
+      example:
+        message: User not found
+        code: 404
+        data:
+          userId: 63

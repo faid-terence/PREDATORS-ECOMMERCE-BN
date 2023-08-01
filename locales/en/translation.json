@@ -1,0 +1,21 @@
+{
+    "welcome_message":"Welcome to the E-commerce RESTful API!",
+    "user_retrieved_exception":"Users retrieved successfully",
+    "not_authorized_exception":"You are not authorized to update this information",
+    "user_not_found_exception":"User not found",
+    "user_updated_exception":"Profile was successfully Updated!",
+    "single_user_found_exception":"User retrieved",
+    "status_message_success": "success",
+    "status_message_fail": "failed",
+    "item_not_found_in_seller_collection":"The product you are trying to view is not in your collection",
+    "unauthorized_to_view_the_product":"You do not have access to this item",
+    "item_retrieved_success":"Item retrieved successfully",
+    "server_error":"Something is wrong, Try again later",
+    "item_not_found":"Item not found",
+    "Unauthorized":"Not authorized please sign in first",
+    "Order_not_found": "Order not found",
+    "Order_retrieved":"Order retrieved successfully",
+    "Order_not_paid":"this order not yet paid"
+
+    
+}

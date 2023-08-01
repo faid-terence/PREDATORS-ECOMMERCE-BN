@@ -1,0 +1,63 @@
+tags:
+  - name: List of products
+    description: An API for getting the list of products from the database depending on your role
+
+components:
+  responses:
+    response200:
+      type: object
+      properties:
+        status:
+          type: string
+          description: description of whether the request was successful or failure
+          example: success
+        message:
+          type: string
+          description: indepth explanation on how the request went
+          example: Successfully pulled products from database
+        data:
+          type: array
+          description: Array of requested data
+
+paths:
+  /api/vendor/collection:
+    post:
+      description: Get all products in your collection as vendor
+      tags:
+        - List of products
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: integer
+                  description: A unique id of the vendor
+                  example: 1
+      responses:
+        200:
+          description: Successful pull from database
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/response200'
+  /api/user/products:
+    get:
+      description: Get all available products as a buyer.
+      tags:
+        - List of products
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: Successful pull from database
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/response200'

@@ -1,0 +1,134 @@
+paths:
+  /api/cart: 
+    post: 
+      tags: 
+        - Cart
+      summary: Add products to cart
+      description: Add products to users cart
+      security:
+        - bearerAuth: []
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:  
+              type: object
+              properties:
+                product_id:
+                  type: string
+                  format: number
+                  description: The product Identifier (ex product id) 
+                quantity:
+                  type: string
+                  format: number
+                  description: Quantity of product saved in cart 
+   
+
+      responses:
+        '200':
+          description: succssefully added Product on cart
+        '401':
+          description: error occured [unauthorized]
+        '500':
+          description: internal server error
+
+      
+    get:
+      tags: 
+        - Cart
+      summary: get products from cart
+      description: Get products added to users cart
+      security:
+        - bearerAuth: []
+      
+
+      responses:
+        '200':
+          description: succssefully showing Products in cart
+          
+        '401':
+          description: error occured [unauthorized]
+        '500':
+          description: internal server error
+
+
+  /api/cart/{id}: 
+    delete:
+      tags: 
+        - Cart
+      summary: delete products from cart
+      description: Delete product from users cart
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+        
+          required: true
+          description: id of cart to delete
+          schema:
+            type: integer
+            example: 1
+
+
+      responses:
+        '200':
+          description: succssefully showing   cart deleted
+          
+        '401':
+          description: error occured [unauthorized]
+        '500':
+          description: internal server error
+
+
+    put:
+      tags: 
+        - Cart
+      summary: update product in cart
+      description: Get cart id to be updated  
+      security:
+        - bearerAuth: []
+
+      parameters:
+        - name: id
+          in: path
+        
+          required: true
+          description: id of cart to update
+          schema:
+            type: integer
+            example: 1
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:  
+              type: object
+              properties:  
+                quantity:
+                  type: string
+                  format: number
+                  description: Quantity of product saved in cart 
+
+
+      responses:
+        '200':
+          description: succssefully showing   cart updated
+          
+        '401':
+          description: error occured [unauthorized]
+        '500':
+          description: internal server error
+
+
+   
+
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

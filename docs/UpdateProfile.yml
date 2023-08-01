@@ -1,0 +1,125 @@
+paths:
+  /api/profile:
+    get:
+      tags:
+        - Users
+      summary: Get Own profile info
+      description: Retrieve the information about the user initiating the request
+      responses:
+        200:
+          description: The retrieval was successful and will get respective data about the user
+        404:
+          description: The retrival was not sucessful, an error occured in the middle!
+  /api/profiles:
+    get:
+      tags:
+        - Users
+      summary: Get all user profiles
+      description: Retrieve all user profiles
+      responses:
+        '200':
+          description: OK
+  /api/profiles/{id}:
+    get:
+      tags:
+        - Users
+      summary: Get user profile by ID
+      description: Retrieve a user profile by ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the user profile to retrieve
+          required: true
+          schema:
+            type: integer
+            example: '12'
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+  /api/profile/{id}:
+    patch:
+      tags:
+        - Users
+      summary: User profile update
+      description: Update your profile using token
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID of the user profile to update
+          required: true
+          schema:
+            type: integer
+            example: '1'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Names of the user
+                  example: your-name
+                email:
+                  type: string
+                  description: Email of the user
+                  example: your-email@example.com
+                password:
+                  type: string
+                  description: User password
+                  example: your-password
+                roleId:
+                  type: integer 
+                  description: Role of the user
+                  example: 1
+                status:
+                  type: string
+                  description: Status of the user
+                  example: active
+                googleId:
+                  type: string
+                  description: Google ID of the user
+                  example: your-google-id
+                gender:
+                  type: string
+                  description: Gender of the user
+                  example: male
+                preferred_language:
+                  type: string
+                  description: Language of the user
+                  example: en
+                preferred_currency:
+                  type: string
+                  description: Currency of the user
+                  example: USD
+              required:
+                - name
+                - email
+                - password
+                - gender
+      responses:
+        '200':
+          description: OK
+        '201':
+          description: Created
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+components:
+  parameters:
+    bearerAuth:
+      in: header
+      name: Authorization
+      description: JWT authorization token
+      required: true
+      schema:
+        type: string
+        

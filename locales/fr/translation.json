@@ -1,0 +1,19 @@
+{
+    "welcome_message":"Bienvenue sur l'API RESTful de commerce électronique !",
+    "user_retrieved_exception":"Utilisateurs récupérés avec succès",
+    "not_authorized_exception":"Vous n'êtes pas autorisé(e) à mettre à jour ces informations",
+    "user_not_found_exception":"Utilisateur non trouvé",
+    "user_updated_exception":"Le profil a été mis à jour avec succès.!",
+    "status_message_success": "succès",
+    "status_message_fail": "échoué!!",
+    "item_not_found_in_seller_collection":"Le produit que vous essayez de voir n'est pas dans votre collection.",
+    "unauthorized_to_view_the_product":"Vous n'avez pas accès à ce produit.",
+    "item_retrieved_success":"Produit récupéré avec succès",
+    "server_error":"Quelque chose ne va pas, réessayez plus tard",
+    "item_not_found":"Produit non trouvé",
+    "Unauthorized":"Non autorisé, veuillez vous connecter d'abord",
+    "Order_not_found":"Commandee n'a pas été trouvé",
+    "Order_retrieved":"Commande récupérée avec succès",
+    "Order_not_paid": "Commande non encore payée"
+
+}

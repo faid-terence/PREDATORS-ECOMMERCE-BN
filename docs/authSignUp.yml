@@ -1,0 +1,148 @@
+paths:
+  /api/register:
+    post:
+      tags:
+        - Users
+      summary: Register a user without using social accounts
+      description: Registers a new user account using email and password
+      requestBody:
+        description: User registration details
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name: 
+                  type: string
+                  description: User's full name
+                  example: John Doe
+                email: 
+                  type: string
+                  format: email
+                  description: User's email address
+                  example: john.doe@example.com
+                role_id: 
+                  type: integer
+                  description: User's role ID
+                  example: 2
+                password: 
+                  type: string
+                  format: password
+                  description: User's password
+                  minLength: 8
+                  example: mySecurePassword123
+              required:
+                - name
+                - email
+                - role_id
+                - password
+      responses:
+        '200':
+          description: User registration successful
+          content:
+            application/json:
+              schema:
+
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid input provided
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: User's unique identifier in the database
+          example: 123
+        name:
+          type: string
+          description: User's full name
+          example: John Doe
+        email:
+          type: string
+          format: email
+          description: User's email address
+          example: john.doe@example.com
+        role_id:
+          type: integer
+          description: User's role ID
+          example: 2
+        password_hash:
+          type: string
+          description: Hashed password for user authentication
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp of when user details were last updated
+          example: '2023-04-14T12:00:00.000Z'
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp of when user account was created
+          example: '2023-04-14T12:00:00.000Z'
+        status:
+          type: string
+          enum: [active, inactive]
+          description: Current status of the user account
+          example: active
+        google_id:
+          type: integer
+          nullable: true
+          description: Google ID linked to user account (if applicable)
+          example: 123456789
+        gender:
+          type: string
+          enum: [male, female, other, prefer_not_to_say]
+          nullable: true
+          description: User's gender (if provided)
+          example: male
+        preferred_language:
+          type: string
+          nullable: true
+          description: User's preferred language (if provided)
+          example: en_US
+        preferred_currency:
+          type: string
+          nullable: true
+          description: User's preferred currency (if provided)
+          example: USD
+      required:
+        - id
+        - name
+        - email
+        - role_id
+        - password_hash
+        - updated_at
+        - created
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: A description of the error
+        code:
+          type: integer
+          description: An error code associated with the error
+        data:
+          type: object
+          description: Additional information about the error
+      example:
+        message: User not found
+        code: 404
+        data:
+          userId: 1234

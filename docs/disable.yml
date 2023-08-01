@@ -1,0 +1,53 @@
+paths:
+  /api/disableUser/{id}:
+    post:
+      tags:
+        - Users
+      summary: Disabling the user account
+      description: >
+        This endpoint enables the admin to disable the account of a user. The request must be authorized with a JWT token and the authenticated user must have the `admin` role.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: number
+                  description: The ID of the user to disable
+                status:
+                  type: string
+                  description: The status
+                reason:
+                  type: string
+                  description: The reason why the account is being disabled
+              required:
+                - id
+                - status
+                - reason
+              example:
+                id: 1
+                status: "DISABLING" # or "DISABLED" or "REMOVED"
+                reason: "The user's account is being disabled" # or "The user's account has been disabled." or "The user's account is being removed."
+      responses:
+        '200':
+          description: The account was successfully disabled
+        '400':
+          description: Invalid request body
+        '401':
+          description: Unauthorized - invalid or missing JWT token
+        '403':
+          description: Forbidden - authenticated user does not have the `admin` role
+        '500':
+          description: An error occurred while processing the request
+  security:
+    - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
